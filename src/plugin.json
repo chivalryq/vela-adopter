@@ -1,0 +1,106 @@
+{
+  "type": "page-app",
+  "name": "KubeVela Adopter",
+  "id": "vela-adopter",
+  "info": {
+    "keywords": [
+      "app"
+    ],
+    "description": "Adopt your kubernetes resources to KubeVela",
+    "author": {
+      "name": "KubeVela"
+    },
+    "logos": {
+      "small": "img/logo.svg",
+      "large": "img/logo.svg"
+    },
+    "screenshots": [],
+    "version": "%VERSION%",
+    "updated": "%TODAY%"
+  },
+  "backend": true,
+  "proxy": true,
+  "backendType": "kube-api",
+  "kubePermissions": [
+    {
+      "apiGroups": [
+        "apps"
+      ],
+      "resources": [
+        "deployments"
+      ],
+      "verbs": [
+        "get",
+        "list"
+      ]
+    },
+    {
+      "apiGroups": [
+        ""
+      ],
+      "resources": [
+        "namespaces"
+      ],
+      "verbs": [
+        "get",
+        "list"
+      ]
+    },
+    {
+      "apiGroups": [
+        "",
+        "events.k8s.io"
+      ],
+      "resources": [
+        "events"
+      ],
+      "verbs": [
+        "get",
+        "list"
+      ]
+    }
+  ],
+  "includes": [
+    {
+      "workspace": {
+        "name": "admin"
+      },
+      "type": "Workspace",
+      "label": "Vela Adopter",
+      "name": "vela-adopter",
+      "to": "/plugins/%PLUGIN_ID%",
+      "permission": {
+        "resource": "deployment",
+        "action": "list"
+      },
+      "relatedRoute": [
+        "/plugins/%PLUGIN_ID%"
+      ],
+      "icon": "",
+      "catalog": "Application"
+    }
+  ],
+  "routes": [
+    {
+      "path": "/api/v1/namespaces",
+      "permission": {
+        "resource": "namespaces",
+        "action": "list"
+      }
+    },
+    {
+      "path": "/apis/apps/v1/namespaces/:nsName/deployments",
+      "permission": {
+        "resource": "deployments",
+        "action": "list"
+      },
+      "resourceMap": {
+        "namespace": "nsName"
+      }
+    }
+  ],
+  "dependencies": {
+    "velauxDependency": ">=1.8.0",
+    "plugins": []
+  }
+}

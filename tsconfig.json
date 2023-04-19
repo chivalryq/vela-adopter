@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "alwaysStrict": true,
     "declaration": false,
     "baseUrl": "../src",
@@ -13,8 +14,7 @@
   ],
   "extends": "@grafana/tsconfig",
   "include": [
-    "src/**/*.ts*",
-    "images.d.ts"
+    "src/**/*.ts*"
   ],
   "ts-node": {
     "compilerOptions": {

@@ -19,15 +19,15 @@ export function getPluginId() {
 export function hasReadme() {
   return fs.existsSync(path.resolve(process.cwd(), SOURCE_DIR, 'README.md'));
 }
-
 export async function getEntries(): Promise<Record<string, string>> {
   const parent = '..';
   const pluginsJson = await globAsync('**/src/**/plugin.json');
-  
+
   const plugins = await Promise.all(pluginsJson.map(pluginJson => {
     const folder = path.dirname(pluginJson);
     return globAsync(`${folder}/module.{ts,tsx,js}`);
   }));
+  console.log(plugins)
 
   return plugins.reduce((result, modules) => {
     return modules.reduce((result, module) => {

@@ -10,15 +10,15 @@ module.exports = {
     eqeqeq: 'off',
     'react/prop-types': 'off',
     // need to ignore emotion's `css` prop, see https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/no-unknown-property.md#rule-options
-    'react/no-unknown-property': ['error', { ignore: ['css'] }],
-    'import/order': [
-      'error',
-      {
-        groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index'],
-        'newlines-between': 'always',
-        alphabetize: { order: 'asc' },
-      },
-    ],
+    // 'react/no-unknown-property': ['error', { ignore: ['css'] }],
+    // 'import/order': [
+    //   'error',
+    //   {
+    //     groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index'],
+    //     'newlines-between': 'always',
+    //     alphabetize: { order: 'asc' },
+    //   },
+    // ],
     'import/order': 'off',
     'react/jsx-key': 'off',
     'no-restricted-imports': [
@@ -44,5 +44,5 @@ module.exports = {
     'react/no-unknown-property': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/array-type': 'off',
-  },
+  }
 };

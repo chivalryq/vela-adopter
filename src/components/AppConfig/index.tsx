@@ -44,86 +44,91 @@ export const AppConfig = ({ plugin }: AppConfigProps) => {
   };
 
   return (
-    <Box className="gf-form-group">
+    <Box className="gf-form-group" padding={4}>
       <Typography.H2>{plugin.meta.name} {info.version && `v${info.version}`}</Typography.H2>
       <Typography.Text>{info.description}</Typography.Text>
       <Typography.Text>{info.author && `Author: ${info.author.name}`}</Typography.Text>
-      <br />
-      <br />
       <Box>
         <Typography.H3>JSON Data:</Typography.H3>
-        {Object.entries(inputJsonData).map(([key, value]) => (
-          <Box key={key}>
-            <label>{key}:</label>
-            <Input
-              value={value}
-              onChange={(value) => handleJsonDataChange(key, value)}
-            />
-            <Button
-              type="primary"
-              style={{ minWidth: 'fit-content', padding: '4px 12px' }}
-              onClick={addNewJsonData}
-            >
-              Add
-            </Button>
-          </Box>
-        ))}
+        <Typography.Paragraph>
+          {Object.entries(inputJsonData).map(([key, value]) => (
+            <Box key={key}>
+              <label>{key}:</label>
+              <Input
+                value={value}
+                onChange={(value) => handleJsonDataChange(key, value)}
+              />
+            </Box>
+          ))}
+          <Button
+            type="primary"
+            style={{ minWidth: 'fit-content', padding: '4px 12px' }}
+            onClick={addNewJsonData}
+          >
+            Add
+          </Button>
+        </Typography.Paragraph>
       </Box>
-      <br />
       <Box>
         <Typography.H3>Secure JSON Data:</Typography.H3>
-        {Object.entries(inputSecureJsonData).map(([key, value]) => (
-          <Box key={key}>
-            <label>{key}:</label>
-            <Input
-              value={value}
-              onChange={(value) => handleSecureJsonDataChange(key, value)}
-            />
-            <Button
-              type="primary"
-              style={{ minWidth: 'fit-content', padding: '4px 12px' }}
-              onClick={addNewSecureJsonData}>
-              Add
-            </Button>
-          </Box>
-        ))}
+        <Typography.Paragraph>
+          {Object.entries(inputSecureJsonData).map(([key, value]) => (
+            <Box key={key}>
+              <label>{key}:</label>
+              <Input
+                value={value}
+                onChange={(value) => handleSecureJsonDataChange(key, value)}
+              />
+            </Box>
+          ))}
+          <Button
+            type="primary"
+            style={{ minWidth: 'fit-content', padding: '4px 12px' }}
+            onClick={addNewSecureJsonData}>
+            Add
+          </Button>
+        </Typography.Paragraph>
       </Box>
       <Box>
         {/* Enable/Disable the plugin */}
-        <Typography.H3>Enable / Disable</Typography.H3>
+        <Typography.H3>Status</Typography.H3>
         {!enabled && (
           <>
             <Typography.Text>The plugin is currently not enabled.</Typography.Text>
-            <Button
-              type="primary"
-              style={{ minWidth: 'fit-content', padding: '4px 12px' }}
-              onClick={() =>
-                updatePluginAndReload(plugin.meta.id, {
-                  enabled: true,
-                  jsonData: inputJsonData,
-                  secureJsonData: inputSecureJsonData,
-                })
-              }>
-              Enable plugin
-            </Button>
+            <Typography.Paragraph>
+              <Button
+                type="primary"
+                style={{ minWidth: 'fit-content', padding: '4px 12px' }}
+                onClick={() =>
+                  updatePluginAndReload(plugin.meta.id, {
+                    enabled: true,
+                    jsonData: inputJsonData,
+                    secureJsonData: inputSecureJsonData,
+                  })
+                }>
+                Enable plugin
+              </Button>
+            </Typography.Paragraph>
           </>
         )}
 
         {enabled && (
           <>
             <Typography.Text>The plugin is currently enabled.</Typography.Text>
-            <Button
-              type="secondary"
-              style={{ minWidth: 'fit-content', padding: '4px 12px' }}
-              onClick={() =>
-                updatePluginAndReload(plugin.meta.id, {
-                  enabled: false,
-                  jsonData: inputJsonData,
-                  secureJsonData: inputSecureJsonData,
-                })
-              }>
-              Disable plugin
-            </Button>
+            <Typography.Paragraph>
+              <Button
+                type="secondary"
+                style={{ minWidth: 'fit-content', padding: '4px 12px' }}
+                onClick={() =>
+                  updatePluginAndReload(plugin.meta.id, {
+                    enabled: false,
+                    jsonData: inputJsonData,
+                    secureJsonData: inputSecureJsonData,
+                  })
+                }>
+                Disable plugin
+              </Button>
+            </Typography.Paragraph>
           </>
         )}
       </Box>

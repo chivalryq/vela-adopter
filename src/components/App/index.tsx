@@ -2,6 +2,7 @@ import * as React from 'react';
 import { AppRootProps } from '@velaux/data';
 import * as VelauxUI from '@velaux/ui';
 import {
+  Box,
   CreatePipelineRequest,
   Form,
   getBackendSrv,
@@ -161,7 +162,7 @@ export class App extends React.PureComponent<AppRootProps, State> {
     return (
       <div className="page-container">
         <ListTitle title="KubeVela Adopter" subTitle="" />
-        <Row align={'center'}>
+        <Row align={'bottom'} justify={'space-between'}>
           <Col span={4}>
             <div className="cluster-select">
               <Form.Item label="Namespace" labelAlign="left">
@@ -175,13 +176,12 @@ export class App extends React.PureComponent<AppRootProps, State> {
             </div>
           </Col>
           <Col span={6}>
-            <div className="adopt-all">
+            <Box className="adopt-all" style={{ marginBottom: '15px' }} align={'flex-end'}>
               <Button type={"primary"} onClick={() => this.handleAdoptNamespace(selectNamespace)}>
                 Adopt Namespace
               </Button>
-            </div>
+            </Box>
           </Col>
-
         </Row>
         <div>
           <Table dataSource={deploys} locale={locale().Table}>

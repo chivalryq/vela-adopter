@@ -16,11 +16,12 @@ import {
   Table
 } from '@velaux/ui';
 import { Button, Message } from '@alifd/next';
-import { V1Container, V1Deployment, V1DeploymentCondition, V1Namespace, } from '@kubernetes/client-node';
+import { V1Container, V1Deployment, V1DeploymentCondition, } from '@kubernetes/client-node';
 import './index.less';
+import { getNamespaces } from "../../utils/utils";
+import { pluginID } from "../../module";
 
 const { Row, Col } = Grid;
-const pluginName = 'vela-adopter'
 
 interface State {
   namespaces?: string[];
@@ -38,39 +39,24 @@ export class App extends React.PureComponent<AppRootProps, State> {
     this.loadNamespaces();
   }
 
-  loadNamespaces = () => {
-    getBackendSrv()
-      .get(`/proxy/plugins/${pluginName}/api/v1/namespaces`)
-      .then((res: any) => {
-        console.log(res)
-        if (res) {
-          // put default to first
-          if (res.items) {
-            const defaultIndex = res.items.findIndex((ns: V1Namespace) => ns.metadata?.name === 'default');
-            if (defaultIndex > 0) {
-              const defaultNs = res.items[defaultIndex];
-              res.items.splice(defaultIndex, 1);
-              res.items.unshift(defaultNs);
-            }
-          }
 
-          const defaultCluster =
-            Array.isArray(res.items) && res.items.length > 0 ? res.items[0].metadata.name : 'default';
-          this.setState({
-            namespaces: res.items.map((ns: V1Namespace) => ns.metadata?.name),
-            selectNamespace: defaultCluster
-          }, () => {
-            this.loadDeploys();
-          });
-        }
-      });
+  loadNamespaces = () => {
+    getNamespaces()
+      .then((namespaces: any) => {
+        this.setState({
+          namespaces: namespaces,
+          selectNamespace: namespaces[0]
+        }, () => {
+          this.loadDeploys();
+        });
+      })
   };
   loadDeploys = () => {
     const { selectNamespace } = this.state;
     const ns = selectNamespace || 'default';
     console.log(ns)
     getBackendSrv()
-      .get(`/proxy/plugins/${pluginName}/apis/apps/v1/namespaces/${ns}/deployments`)
+      .get(`/proxy/plugins/${pluginID}/apis/apps/v1/namespaces/${ns}/deployments`)
       .then((res: any) => {
         console.log(res)
         if (res) {
